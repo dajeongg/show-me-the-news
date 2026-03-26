@@ -1,4 +1,4 @@
-name: Daily News Mail
+name: Daily News Mail 
 on:
   schedule:
     - cron: "0 9 * * *"  # 매일 9시 KST
