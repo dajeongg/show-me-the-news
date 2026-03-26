@@ -1,0 +1,17 @@
+name: Daily News Mail
+on:
+  schedule:
+    - cron: "0 9 * * *"  # 매일 9시 KST
+jobs:
+  send-news:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run News Mailer
+        run: python main.py
