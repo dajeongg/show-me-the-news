@@ -1,8 +1,11 @@
 import feedparser
 from config import KEYWORD
+from urllib.parse import quote
 
 def fetch_news():
-    url = f"https://news.google.com/rss/search?q={KEYWORD}&hl=ko&gl=KR&ceid=KR:ko"
+    encoded_keyword = quote(KEYWORD)
+
+    url = f"https://news.google.com/rss/search?q={encoded_keyword}&hl=ko&gl=KR&ceid=KR:ko"
     
     feed = feedparser.parse(url)
 
@@ -13,7 +16,6 @@ def fetch_news():
         title = entry.title
         link = entry.link
 
-        # 🔥 중복 제거
         if title in seen_titles:
             continue
         seen_titles.add(title)
@@ -23,7 +25,6 @@ def fetch_news():
             "url": link
         })
 
-        # 🔥 최대 5개
         if len(articles) >= 5:
             break
 
