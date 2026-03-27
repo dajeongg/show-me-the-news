@@ -1,40 +1,30 @@
 import feedparser
 from config import KEYWORD
-from datetime import datetime, timedelta
 
 def fetch_news():
-    # 🔥 OR 검색으로 변경 (핵심)
-    query = KEYWORD.replace(" or ", "%20OR%20")
-
-    url = f"https://news.google.com/rss/search?q={query}&hl=ko&gl=KR&ceid=KR:ko"
-
+    url = f"https://news.google.com/rss/search?q={KEYWORD}&hl=ko&gl=KR&ceid=KR:ko"
+    
     feed = feedparser.parse(url)
 
-    # 🔥 한국 시간 기준
-    today = (datetime.utcnow() + timedelta(hours=8)).date()
-
     articles = []
+    seen_titles = set()
+
     for entry in feed.entries:
-        published = entry.get("published_parsed")
+        title = entry.title
+        link = entry.link
 
-        if published:
-            pub_date = datetime(*published[:6]).date()
+        # 🔥 중복 제거
+        if title in seen_titles:
+            continue
+        seen_titles.add(title)
 
-            # 🔥 오늘 뉴스만 유지 (원하면 이 부분 제거 가능)
-            if pub_date == today:
-                articles.append({
-                    "title": entry.title,
-                    "url": entry.link,
-                    "content": entry.summary
-                })
+        articles.append({
+            "title": title,
+            "url": link
+        })
 
-    # 🔥 중복 제거 (제목 기준)
-    seen = set()
-    filtered = []
+        # 🔥 최대 5개
+        if len(articles) >= 5:
+            break
 
-    for a in articles:
-        if a["title"] not in seen:
-            filtered.append(a)
-            seen.add(a["title"])
-
-    return filtered[:10]  # 🔥 최종 5개
+    return articles
