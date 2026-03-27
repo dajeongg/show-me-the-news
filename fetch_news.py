@@ -37,4 +37,4 @@ def fetch_news():
             filtered.append(a)
             seen.add(a["title"])
 
-    return filtered[:5]  # 🔥 최종 5개
+    return filtered[:10]  # 🔥 최종 5개
