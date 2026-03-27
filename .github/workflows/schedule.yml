@@ -2,8 +2,8 @@ name: Daily News Mail
 
 on:
   schedule:
-    - cron: "0 0 * * *"
-  workflow_dispatch:
+    - cron: "0 0 * * *"  # 한국 오전 9시
+  workflow_dispatch:  # 수동 실행 가능
 
 jobs:
   send-news:
@@ -21,7 +21,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run News Mailer
+        run: python main.py
         env:
           SMTP_EMAIL: ${{ secrets.SMTP_EMAIL }}
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
-        run: python main.py
