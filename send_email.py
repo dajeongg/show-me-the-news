@@ -6,10 +6,10 @@ def send_email(subject, html_body):
     msg = MIMEText(html_body, "html")
     msg["Subject"] = subject
     msg["From"] = SMTP_EMAIL
-    
-    # 👉 형식용 (본인)
+
+    # 👉 형식용
     msg["To"] = SMTP_EMAIL
-    
+
     # 👉 실제 수신자 (숨김)
     msg["Bcc"] = ", ".join(TO_EMAILS)
 
