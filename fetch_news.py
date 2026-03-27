@@ -11,7 +11,7 @@ def fetch_news():
     feed = feedparser.parse(url)
 
     # 🔥 한국 시간 기준
-    today = (datetime.utcnow() + timedelta(hours=9)).date()
+    today = (datetime.utcnow() + timedelta(hours=8)).date()
 
     articles = []
     for entry in feed.entries:
