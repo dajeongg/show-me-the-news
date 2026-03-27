@@ -6,4 +6,4 @@ SMTP_PASSWORD = os.environ.get("SMTP_PASSWORD")
 OPENAI_KEY = os.environ.get("OPENAI_KEY")
 
 TO_EMAIL = "kimdj0420@gmail.com"  # 바꾸고 싶으면 직접 수정
-KEYWORD = "은행 or 금융 or AI or 기"  # 뉴스 검색 키워드
+KEYWORD = "은행 or 금융 or AI or 기술"  # 뉴스 검색 키워드
