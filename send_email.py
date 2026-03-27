@@ -7,10 +7,10 @@ def send_email(subject, html_body):
     msg["Subject"] = subject
     msg["From"] = SMTP_EMAIL
     
-    # 👉 To에는 자기 자신 (형식용)
+    # 👉 형식용 (본인)
     msg["To"] = SMTP_EMAIL
     
-    # 👉 BCC로 실제 수신자들 숨김 처리
+    # 👉 실제 수신자 (숨김)
     msg["Bcc"] = ", ".join(TO_EMAILS)
 
     with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
