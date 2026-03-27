@@ -1,16 +1,16 @@
 from fetch_news import fetch_news
-# from summarize_news import summarize  # 🔴 나중에 다시 쓸 때 주석 해제
 from send_email import send_email
 
 articles = fetch_news()
 
-for a in articles:
-    content = a.get("content") or a.get("title")
+# 🔥 메일 제목
+subject = "오늘의 금융기술 동향"
 
-    # 🔴 AI 요약 (현재는 비활성화)
-    # summary = summarize(content)
+# 🔥 메일 본문 만들기
+body = "📊 오늘의 금융기술 동향\n\n"
 
-    # 🔴 지금은 요약 대신 제목 + 링크만 보냄
-    body = f"{a['title']}\n{a['url']}"
+for i, a in enumerate(articles, 1):
+    body += f"{i}. {a['title']}\n{a['url']}\n\n"
 
-    send_email(a["title"], body)
+# 🔥 한 번만 발송
+send_email(subject, body)
