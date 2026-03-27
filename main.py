@@ -1,3 +1,15 @@
+from news import fetch_news
+from send_email import send_email
+from utils import shorten_url  # 있으면 사용
+
+# 🔥 1. 뉴스 가져오기 (이게 없어서 에러난거)
+articles = fetch_news()
+
+# 🔥 2. 단축 링크 생성 (선택)
+for a in articles:
+    a["short_url"] = shorten_url(a["url"])
+
+# 🔥 3. HTML 메일 만들기
 subject = "📊 오늘의 금융기술 동향"
 
 html_body = """
@@ -6,10 +18,6 @@ html_body = """
     <h2 style="text-align:center; color:#2c3e50;">
         📊 오늘의 금융·AI 동향
     </h2>
-    
-    <p style="text-align:center; color:gray;">
-        오늘의 주요 뉴스를 한눈에 확인하세요
-    </p>
 
     <table style="border-collapse: collapse; width:100%; margin-top:20px;">
         <tr style="background-color:#4CAF50; color:white;">
@@ -26,13 +34,7 @@ for i, a in enumerate(articles, 1):
             <td style="padding:10px;">{a['title']}</td>
             <td style="padding:10px; text-align:center;">
                 <a href="{a['short_url']}" 
-                   style="
-                        background-color:#4CAF50;
-                        color:white;
-                        padding:6px 12px;
-                        text-decoration:none;
-                        border-radius:6px;
-                        font-size:14px;">
+                   style="background-color:#4CAF50; color:white; padding:6px 12px; text-decoration:none; border-radius:6px;">
                    보기
                 </a>
             </td>
@@ -41,12 +43,8 @@ for i, a in enumerate(articles, 1):
 
 html_body += """
     </table>
-
-    <p style="margin-top:30px; font-size:12px; color:gray; text-align:center;">
-        ⏰ 매일 자동 발송되는 뉴스 요약 서비스입니다
-    </p>
-
 </div>
 """
 
+# 🔥 4. 메일 보내기
 send_email(subject, html_body)
