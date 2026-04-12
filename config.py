@@ -5,7 +5,7 @@ SMTP_PASSWORD = os.environ.get("SMTP_PASSWORD")
 
 # 🔥 여러 명 (BCC용)
 TO_EMAILS = [
-    "kimdj0420@gmail.com, kimdajeong@ibk.co.kr"
+    "kimdj0420@gmail.com"
 ]
 
 # 🔥 검색 키워드
